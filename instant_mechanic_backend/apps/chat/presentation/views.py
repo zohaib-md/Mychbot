@@ -26,6 +26,7 @@ class ChatView(APIView):
     """
 
     @extend_schema(
+        tags=["chat"],
         request=ChatMessageSerializer,
         responses={200: ChatResponseSerializer},
         description=(
@@ -62,6 +63,7 @@ class UploadView(APIView):
     """
 
     @extend_schema(
+        tags=["chat"],
         request=MediaUploadSerializer,
         responses={201: MediaUploadResponseSerializer},
         description=(

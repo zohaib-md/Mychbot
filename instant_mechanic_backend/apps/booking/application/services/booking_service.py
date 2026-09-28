@@ -33,9 +33,13 @@ class BookingService:
     def create_booking(self, session_id: str, payload: BookingPayload) -> BookingConfirmation:
         context = self.conversation_repo.get_or_create(session_id)
 
+        if context.state == ConversationState.BOOKING_CONFIRMED:
+            raise ConversationStateError(
+                "A booking has already been confirmed for this session."
+            )
         if context.state not in self.ALLOWED_BOOKING_STATES:
             raise ConversationStateError(
-                f"Cannot book from state '{context.state}'. "
+                f"Cannot book from state '{context.state.value}'. "
                 "Please complete the diagnosis first."
             )
 

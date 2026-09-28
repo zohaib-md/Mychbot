@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from apps.diagnosis.presentation.serializers import DiagnosisResultSerializer
 
 
 class ChatMessageSerializer(serializers.Serializer):
@@ -10,7 +11,7 @@ class ChatResponseSerializer(serializers.Serializer):
     message = serializers.CharField()
     state = serializers.CharField()
     requires_booking = serializers.BooleanField()
-    diagnosis = serializers.DictField(required=False, allow_null=True)
+    diagnosis = DiagnosisResultSerializer(required=False, allow_null=True)
 
 
 class MediaUploadSerializer(serializers.Serializer):

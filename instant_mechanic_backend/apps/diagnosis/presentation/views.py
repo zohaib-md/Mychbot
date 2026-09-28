@@ -12,6 +12,7 @@ class DiagnosisView(APIView):
     """POST /api/diagnosis/ — Manually trigger AI diagnosis for a session."""
 
     @extend_schema(
+        tags=["diagnosis"],
         request=DiagnosisRequestSerializer,
         responses={200: DiagnosisResultSerializer},
         description=(

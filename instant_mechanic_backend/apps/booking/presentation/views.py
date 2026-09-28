@@ -27,6 +27,7 @@ class BookingView(APIView):
     """POST /api/booking/ — Create a new mechanic booking."""
 
     @extend_schema(
+        tags=["booking"],
         request=CreateBookingSerializer,
         responses={201: BookingConfirmationSerializer},
         description="Create a mechanic booking. Returns a UUID booking reference and confirmed status.",
@@ -56,6 +57,7 @@ class BookingDetailView(APIView):
     """GET /api/booking/{id}/ — Retrieve booking by UUID."""
 
     @extend_schema(
+        tags=["booking"],
         responses={200: BookingDetailSerializer},
         description="Retrieve booking details by UUID. Returns 404 if not found.",
     )

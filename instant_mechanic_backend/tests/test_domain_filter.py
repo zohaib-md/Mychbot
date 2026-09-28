@@ -42,6 +42,20 @@ class TestDomainFilter:
     def test_brake_issue(self, domain_filter):
         assert domain_filter.is_automotive("brakes are grinding when I stop") is True
 
+    def test_long_follow_up_accepted_mid_conversation(self, domain_filter):
+        # No car keyword and > 8 words, but we're answering a follow-up question
+        ctx = ConversationContext(session_id="test", state=ConversationState.COLLECTING_SYMPTOMS)
+        msg = "it started last week and gets worse at high speed"
+        assert domain_filter.is_automotive(msg, ctx) is True
+
+    def test_long_keywordless_message_rejected_at_start(self, domain_filter, idle_context):
+        msg = "it started last week and gets worse at high speed"
+        assert domain_filter.is_automotive(msg, idle_context) is False
+
+    def test_hard_reject_applies_mid_conversation(self, domain_filter):
+        ctx = ConversationContext(session_id="test", state=ConversationState.COLLECTING_SYMPTOMS)
+        assert domain_filter.is_automotive("what are the best stocks to buy", ctx) is False
+
     def test_rejects_cricket(self, domain_filter):
         assert domain_filter.is_automotive("who won the cricket match today") is False
 

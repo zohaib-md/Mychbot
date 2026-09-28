@@ -45,7 +45,7 @@ class ChatService:
         self.conversation_repo.append_message(session_id, "user", message)
 
         # 3. Domain filter — early exit, zero AI cost
-        if not self.domain_filter.is_automotive(message):
+        if not self.domain_filter.is_automotive(message, context):
             self.conversation_repo.append_message(session_id, "bot", REJECTION_MESSAGE)
             return ChatResponse(
                 message=REJECTION_MESSAGE,

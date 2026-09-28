@@ -25,8 +25,21 @@ LOCAL_APPS = [
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+# Required by drf-spectacular's Swagger UI page (/api/docs/).
+# Swagger UI's JS/CSS are loaded from its CDN, so no staticfiles app is needed.
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {"context_processors": []},
+    },
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -48,7 +61,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # Gemini
 GEMINI_API_KEY = config("GEMINI_API_KEY", default="")
-GEMINI_MODEL = config("GEMINI_MODEL", default="gemini-1.5-flash")
+GEMINI_MODEL = config("GEMINI_MODEL", default="gemini-2.5-flash")
 
 # CORS
 CORS_ALLOWED_ORIGINS = config(
@@ -67,4 +80,12 @@ SPECTACULAR_SETTINGS = {
     "TITLE": "Instant Mechanic API",
     "DESCRIPTION": "AI Car Mechanic Chatbot — Clean Architecture Django backend",
     "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "COMPONENT_SPLIT_REQUEST": True,  # Correct multipart schema for /api/upload/
+    "TAGS": [
+        {"name": "chat", "description": "Conversation + media upload (State Machine gatekeeper)"},
+        {"name": "diagnosis", "description": "Gemini-powered diagnosis"},
+        {"name": "booking", "description": "Mechanic booking"},
+        {"name": "health", "description": "Liveness probe"},
+    ],
 }

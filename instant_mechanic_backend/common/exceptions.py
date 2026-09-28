@@ -1,18 +1,9 @@
-class DomainException(Exception):
-    """Base class for all domain exceptions."""
-    pass
-
-
-class OffTopicQueryError(DomainException):
-    """Raised when a message is not automotive-related."""
-    pass
-
-
-class MediaValidationError(DomainException):
-    """Raised when an uploaded file fails validation."""
-    pass
-
-
-class ConversationStateError(DomainException):
-    """Raised when an operation is invalid for the current conversation state."""
-    pass
+# Re-export the domain exceptions so there is a single class hierarchy.
+# Services raise these from apps.chat.domain.exceptions; the DRF exception
+# handler imports them from here — both must refer to the same classes.
+from apps.chat.domain.exceptions import (  # noqa: F401
+    DomainException,
+    OffTopicQueryError,
+    MediaValidationError,
+    ConversationStateError,
+)

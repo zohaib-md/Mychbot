@@ -80,8 +80,12 @@ class DeepSeekProvider(IAIProvider):
                 {"role": "user", "content": self._build_prompt(context)},
             ],
             "response_format": {"type": "json_object"},
+            # deepseek-flash reasons by default, and reasoning tokens count against
+            # max_tokens: vague symptoms used the whole budget and left an empty
+            # answer. Disabled, a diagnosis takes ~2 s and ~250 tokens.
+            "thinking": {"type": "disabled"},
             "temperature": 0.2,
-            "max_tokens": 800,
+            "max_tokens": 1500,
         }
         request = urllib.request.Request(
             self._url,

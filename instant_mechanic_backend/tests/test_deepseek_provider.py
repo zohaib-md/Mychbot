@@ -60,6 +60,7 @@ class TestDeepSeekProviderSuccess:
         assert request.full_url == "https://api.deepseek.com/chat/completions"
         assert request.get_header("Authorization") == "Bearer test-key"
         assert payload["response_format"] == {"type": "json_object"}
+        assert payload["thinking"] == {"type": "disabled"}
         assert "grinding noise" in payload["messages"][1]["content"]
 
     def test_mentions_attached_media_in_prompt(self, provider, context):

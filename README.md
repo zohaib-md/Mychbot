@@ -73,8 +73,11 @@ docker compose up --build       # http://localhost:8000/api/docs/
 | Variable | Required | Default | Purpose |
 |---|---|---|---|
 | `DJANGO_SECRET_KEY` | prod | dev-only key | Django signing key. Production refuses to start without it. |
-| `GEMINI_API_KEY` | for AI | `""` | Gemini API key. If it's empty, diagnosis returns the fallback result. |
+| `AI_PROVIDER` | no | `gemini` | `gemini` or `deepseek`. Both implement `IAIProvider`; the rest of the app is unaware which one is used. |
+| `GEMINI_API_KEY` | for Gemini | `""` | Gemini API key. If it's empty, diagnosis returns the fallback result. |
 | `GEMINI_MODEL` | no | `gemini-3.8-flash` | Any Gemini model that supports JSON-schema output |
+| `DEEPSEEK_API_KEY` | for DeepSeek | `""` | DeepSeek API key (prepaid; no free tier) |
+| `DEEPSEEK_MODEL` | no | `deepseek-flash` | DeepSeek chat model. It's text-only, so uploaded media is mentioned to the model but not analysed. |
 | `ALLOWED_HOSTS` | prod | `*` (dev) | Comma-separated, e.g. `13.233.10.20.nip.io` |
 | `CORS_ALLOWED_ORIGINS` | prod | Vercel URL | Comma-separated frontend origins |
 | `DATABASE_URL` | no | `sqlite:///db.sqlite3` | The Docker image sets `sqlite:////app/data/db.sqlite3` (on a volume) |

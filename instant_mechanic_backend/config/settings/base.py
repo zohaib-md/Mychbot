@@ -59,6 +59,14 @@ TIME_ZONE = "UTC"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+# AI provider: "gemini" (default) or "deepseek"
+AI_PROVIDER = config("AI_PROVIDER", default="gemini").strip().lower()
+
+# DeepSeek (OpenAI-compatible API, text-only)
+DEEPSEEK_API_KEY = config("DEEPSEEK_API_KEY", default="")
+DEEPSEEK_MODEL = config("DEEPSEEK_MODEL", default="deepseek-flash")
+DEEPSEEK_BASE_URL = config("DEEPSEEK_BASE_URL", default="https://api.deepseek.com")
+
 # Gemini
 GEMINI_API_KEY = config("GEMINI_API_KEY", default="")
 GEMINI_MODEL = config("GEMINI_MODEL", default="gemini-3.8-flash")

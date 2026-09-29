@@ -6,7 +6,7 @@ The main design goal is **cost control**. It runs on the Gemini free tier, and a
 
 | Layer | Stack |
 |---|---|
-| Backend | Django 5.1, Django REST Framework, SQLite, Google Gemini (`gemini-2.5-flash`), drf-spectacular |
+| Backend | Django 5.1, Django REST Framework, SQLite, Google Gemini (`gemini-3.8-flash`), drf-spectacular |
 | Frontend | Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS |
 | Deployment | Docker + Gunicorn on AWS EC2 (free tier), host Nginx + Let's Encrypt, frontend on Vercel |
 
@@ -74,7 +74,7 @@ docker compose up --build       # http://localhost:8000/api/docs/
 |---|---|---|---|
 | `DJANGO_SECRET_KEY` | prod | dev-only key | Django signing key. Production refuses to start without it. |
 | `GEMINI_API_KEY` | for AI | `""` | Gemini API key. If it's empty, diagnosis returns the fallback result. |
-| `GEMINI_MODEL` | no | `gemini-2.5-flash` | Any Gemini model that supports JSON-schema output |
+| `GEMINI_MODEL` | no | `gemini-3.8-flash` | Any Gemini model that supports JSON-schema output |
 | `ALLOWED_HOSTS` | prod | `*` (dev) | Comma-separated, e.g. `13.233.10.20.nip.io` |
 | `CORS_ALLOWED_ORIGINS` | prod | Vercel URL | Comma-separated frontend origins |
 | `DATABASE_URL` | no | `sqlite:///db.sqlite3` | The Docker image sets `sqlite:////app/data/db.sqlite3` (on a volume) |
@@ -257,7 +257,7 @@ Production `.env` (replace `13.233.10.20` with your instance's public IP; [nip.i
 ```ini
 DJANGO_SECRET_KEY=<python -c "import secrets; print(secrets.token_urlsafe(50))">
 GEMINI_API_KEY=<your key>
-GEMINI_MODEL=gemini-2.5-flash
+GEMINI_MODEL=gemini-3.8-flash
 ALLOWED_HOSTS=13.233.10.20.nip.io
 CORS_ALLOWED_ORIGINS=https://<your-app>.vercel.app
 SECURE_SSL_REDIRECT=False        # flip to True after step 6

@@ -61,7 +61,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # Gemini
 GEMINI_API_KEY = config("GEMINI_API_KEY", default="")
-GEMINI_MODEL = config("GEMINI_MODEL", default="gemini-2.5-flash")
+GEMINI_MODEL = config("GEMINI_MODEL", default="gemini-3.8-flash")
 
 # CORS
 CORS_ALLOWED_ORIGINS = config(

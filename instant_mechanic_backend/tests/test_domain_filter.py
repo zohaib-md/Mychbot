@@ -82,6 +82,18 @@ class TestIntentClassifier:
     def test_report_issue(self, classifier, idle_context):
         assert classifier.classify("my brakes are making a grinding noise", idle_context) == Intent.REPORT_ISSUE
 
+    @pytest.mark.parametrize("message", [
+        "car battery keeps dying overnight",
+        "my car is not starting",
+        "engine overheating on highway",
+        "scooter won't start in the morning",
+        "AC is not cooling",
+        "steering wheel vibrating at 80",
+        "car stalling at signals",
+    ])
+    def test_everyday_symptoms_are_issue_reports(self, classifier, idle_context, message):
+        assert classifier.classify(message, idle_context) == Intent.REPORT_ISSUE
+
     def test_farewell(self, classifier, idle_context):
         assert classifier.classify("thanks, bye!", idle_context) == Intent.FAREWELL
 

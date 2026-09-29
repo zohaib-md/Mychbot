@@ -60,7 +60,15 @@ UPLOAD_PATTERNS: list[str] = [
 ]
 
 ISSUE_PATTERNS: list[str] = [
-    r"\b(problem|issue|trouble|noise|sound|leak|smoke|stall|vibrat|check\s+engine|warning|light|not\s+working|broken|fault|error|broken down|broke down)\b",
+    # Whole words
+    r"\b(problem|issue|trouble|noise|sound|leak|check\s+engine|warning|light|not\s+working|"
+    r"broken|fault|error|broke\s+down|breakdown|dead|flat|puncture|stuck)\b",
+    # Stems — no trailing \b so "vibrat" matches "vibrating", "overheat" matches "overheating"
+    r"\b(smok|stall|vibrat|shak|squeal|squeak|grind|rattl|knock|click|overheat|dying|drain|"
+    r"misfir|jerk|slipp|fail|burn|hiss|wobbl|pull(s|ing)?\s+to)",
+    # Negated function: "won't start", "not starting", "doesn't crank", "can't shift"
+    r"\b(won'?t|wont|doesn'?t|does\s+not|isn'?t|is\s+not|can'?t|cannot|not)\s+\w+",
+    r"\bhard\s+to\s+\w+",
 ]
 
 
